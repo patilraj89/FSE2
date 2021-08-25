@@ -23,8 +23,7 @@ import com.estock.repository.StockRepository;
 public class StockRegistrationController {
 	
 	@Autowired(required=true)
-	private StockRepository stockRepotory;
-	
+	private StockRepository stockRepotory;	
 	
 	@PostMapping("/add")
 	public String addStock(@RequestBody Stock stock) {
