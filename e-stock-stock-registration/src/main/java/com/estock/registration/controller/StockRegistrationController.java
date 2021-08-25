@@ -31,6 +31,7 @@ public class StockRegistrationController {
 		stock.setDate(LocalDate.now().toString());
 		System.out.println("Stock="+stock);
 		System.out.println("Stock="+stock);
+		System.out.println("Stock="+stock);
 		stockRepotory.save(stock);
 		return "Stock added successfully";
 	}
