@@ -30,6 +30,7 @@ public class StockRegistrationController {
 	public String addStock(@RequestBody Stock stock) {
 		stock.setDate(LocalDate.now().toString());
 		System.out.println("Stock="+stock);
+		System.out.println("Stock="+stock);
 		stockRepotory.save(stock);
 		return "Stock added successfully";
 	}
