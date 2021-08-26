@@ -1,0 +1,60 @@
+<p>search-by-date works!</p>
+<div class="main">
+    <div class="header">
+        <h1>Comapny Details</h1>
+        <hr>
+        <h2>Search by Comapny Code</h2>
+    </div>
+    <form class="form" [formGroup]="postData">
+        <label for="searchDateTo">DateTo</label>
+        <input type="date" class="form-input" name="searchDateTo" formControlName="searchDateTo"
+            placeholder="Enter DateTo .">
+            <br><br><br>   
+            <label for="searchFromTo">FromTo</label>
+        <input type="date" class="form-input" name="searchFromTo" formControlName="searchFromTo"
+            placeholder="Enter DateFrom .">
+        <br><br><br>
+        <span *ngIf="postData.controls['searchFromTo'].errors?.required && postData.controls['searchFromTo'].touched">Date From
+            Required</span>
+        <input type="submit" class="button form-submit" value="Search" (click)="searchUser()"
+            [disabled]="!postData.valid"><br />
+        <hr>
+    </form>
+</div>
+<div class="container">
+    <table class="responsive-table">
+        <caption>Stock Price Within Date Range</caption>
+        <thead>
+            <th scope="col">Stock Price</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+           
+            
+        </thead>
+        <tbody *ngFor = "let user of usersDetails">
+            <td>{{user.companyCode}}</td>
+            <td>{{user.comapnyName}}</td>
+            
+            <hr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container">
+    <table class="responsive-table">
+        <caption>MIN , MAX , AVG Within Sipulated Date</caption>
+        <thead>
+            <th scope="col">Max Price</th>
+            <th scope="col">Min Price</th>
+            <th scope="col">Avg Price</th>
+           
+            
+        </thead>
+        <tbody *ngFor = "let user of usersDetails">
+            <td>{{user.companyCode}}</td>
+            <td>{{user.comapnyName}}</td>
+            
+            <hr>
+        </tbody>
+    </table>
+</div>

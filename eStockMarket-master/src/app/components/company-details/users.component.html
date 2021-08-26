@@ -1,0 +1,38 @@
+<div class="main">
+    <div class="header">
+        <h1>Comapny Details</h1>
+        <hr>
+        <h2>Search by Comapny Code</h2>
+    </div>
+    <form class="form" [formGroup]="postData">
+        <label for="companyCode">Company Code</label>
+        <input type="text" class="form-input" name="Company Code" formControlName="companyCode"
+            placeholder="Enter Company Code .">
+        <br><br><br>
+        <span *ngIf="postData.controls['companyCode'].errors?.required && postData.controls['companyCode'].touched">Company Code
+            Required</span>
+        <input type="submit" class="button form-submit" value="Search" (click)="searchUser()"
+            [disabled]="!postData.valid"><br />
+        <hr>
+    </form>
+</div>
+<div class="container">
+    <table class="responsive-table">
+        <caption>All Registered Company</caption>
+        <thead>
+            <th scope="col">Company Code</th>
+            <th scope="col">Comapny Name</th>
+            <th scope="col">Comapny CEO</th>
+            <th scope="col">Company Turnover</th>
+            <th scope="col">Company Website</th>
+        </thead>
+        <tbody *ngFor = "let user of usersDetails">
+            <td>{{user.companyCode}}</td>
+            <td>{{user.comapnyName}}</td>
+            <td>{{user.comapnyCEO}}</td>
+            <td>{{user.companyTurnover}}</td>
+            <td>{{user.companyWebsite}}</td>
+            <hr>
+        </tbody>
+    </table>
+</div>
