@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/model/User';
-import { UserService } from 'src/app/services/user.service';
+import { CompanyService } from 'src/app/services/company.service';
 import {map} from 'rxjs/operators';
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -12,26 +11,25 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class UsersComponent implements OnInit {
 
-  viewingUser: User;
+  //viewingUser: User;
   toSearchCompanyCode: string;
-
+  cmpDetails;
   usersDetails:any = [];
 
   postData = this._fb.group({
     companyCode: ['', Validators.required]
   });
 
-  constructor(private userService: UserService,
+  constructor(private cmpService: CompanyService,
     private _fb: FormBuilder) { }
 
   ngOnInit(): void {
-   // this.userService.allUsers().pipe(map(data => {return data;})).subscribe(response => {
-      //this.viewingUsers = response
-   //     this.usersDetails = response;
-   //     console.log("respone :: ",response);
-   //   },error => {
-   //     console.log("error :: "+error);
-   //   });
+    this.cmpService.listAllCmp().pipe(map(data => {return data;})).subscribe(response => {
+      this.cmpDetails = response        
+        console.log("respone :: ",JSON.stringify(response));
+      },error => {
+        console.log("error :: "+error);
+      });
   }
 
   view(){
@@ -39,12 +37,14 @@ export class UsersComponent implements OnInit {
     console.log("result  ");
   }
 
-  searchUser(){
-    if(this.postData.value['companyCode']){
-      //this.viewingUser = this.userService.getUser(this.toSearchUserEmail);
-      //search in below data. use filter if necessary
-      console.log("companyCode : ",this.postData.value['companyCode']);
-    }
+  deleteCmp(id){
+    alert(id);
+    this.cmpService.removeCmp(id).pipe(map(data => {return data;})).subscribe(response => {
+      this.cmpDetails = response        
+        console.log("respone :: ",JSON.stringify(response));
+      },error => {
+        console.log("error :: "+error);
+      });
   }
 
   handleResponse(response){

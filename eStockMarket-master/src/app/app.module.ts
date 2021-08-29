@@ -17,6 +17,7 @@ import { HomeComponent } from './components/home/home.component';
 
 
 import { SearchByDateComponent } from './components/search-by-date/search-by-date.component';
+import { AddStockComponent } from './components/add-stock/add-stock.component';
 
 
 @NgModule({
@@ -31,7 +32,10 @@ import { SearchByDateComponent } from './components/search-by-date/search-by-dat
     HomeComponent,
 
    
-    SearchByDateComponent
+    SearchByDateComponent,
+
+   
+    AddStockComponent
   ],
   imports: [
     BrowserModule,

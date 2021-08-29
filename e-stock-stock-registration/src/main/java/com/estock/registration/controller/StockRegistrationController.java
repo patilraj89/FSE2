@@ -1,13 +1,21 @@
 package com.estock.registration.controller;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.DoubleSummaryStatistics;
+import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.estock.document.Stock;
+import com.estock.registration.pojo.CmpStock;
 import com.estock.repository.StockRepository;
 
 @RestController
@@ -25,25 +34,43 @@ public class StockRegistrationController {
 	@Autowired(required=true)
 	private StockRepository stockRepotory;	
 	
+	@CrossOrigin
 	@PostMapping("/add")
-	public String addStock(@RequestBody Stock stock) {
+	public ResponseEntity<String> addStock(@RequestBody Stock stock) {
 		stock.setDate(LocalDate.now().toString());
+		stock.setTime(currentDateTime());
 		System.out.println("Stock="+stock);
 		System.out.println("Stock="+stock);
 		System.out.println("Stock="+stock);
 		stockRepotory.save(stock);
-		return "Stock added successfully";
+		return new ResponseEntity<>("Stock Added Succesfully",HttpStatus.OK);
 	}
 	
+	@CrossOrigin
 	@GetMapping("/get/{cmpcode}/{fdate}/{tdate}")
-	public List<Stock> getStock(@PathVariable("cmpcode") String cCode, @PathVariable("fdate") String fdt, @PathVariable("tdate") String tdt) {
+	public CmpStock getStock(@PathVariable("cmpcode") String cCode, @PathVariable("fdate") String fdt, @PathVariable("tdate") String tdt) {
+		CmpStock resRes = new CmpStock();
 		System.out.println("CCODE:"+cCode);
 		System.out.println("FDATE:"+fdt);
 		System.out.println("TDATE:"+tdt);		
 		List<Stock> res = stockRepotory.findStockBycmpCode(cCode);	
 		System.out.println("Res="+res);
 		List<Stock> fRes = res.stream().filter(x->(getDate(x.getDate()).after(getDate(fdt)) || getDate(x.getDate()).equals(getDate(fdt))) && (getDate(x.getDate()).before(getDate(tdt)) || getDate(x.getDate()).equals(getDate(tdt)))).collect(Collectors.toList());
-		return fRes;
+		resRes.setStockData(fRes);
+		
+		DoubleSummaryStatistics stats = fRes.stream()
+                .mapToDouble(n -> n.getStockPrice())
+                .summaryStatistics();
+		resRes.setAvgVal(BigDecimal.valueOf(stats.getAverage())
+			    .setScale(2, RoundingMode.HALF_UP)
+			    .doubleValue());
+		resRes.setMaxVal(BigDecimal.valueOf(stats.getMax())
+			    .setScale(2, RoundingMode.HALF_UP)
+			    .doubleValue());
+		resRes.setMinVal(BigDecimal.valueOf(stats.getMin())
+			    .setScale(2, RoundingMode.HALF_UP)
+			    .doubleValue());
+		return resRes;
 	}	
 		
 	private static Date getDate(String date) {		
@@ -54,6 +81,13 @@ public class StockRegistrationController {
 			e.printStackTrace();
 		}		
 		return date1;		
+	}
+	
+	public static String currentDateTime() {
+	    Calendar c = Calendar.getInstance();
+	    SimpleDateFormat dateformat = new SimpleDateFormat("hh:mm:ss aa");
+	    String datetime = dateformat.format(c.getTime());
+	    return datetime;
 	}
 
 }

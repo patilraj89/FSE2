@@ -1,36 +1,45 @@
 package com.estock.registration.pojo;
 
-import java.time.LocalDate;
+import java.util.List;
+
+import com.estock.document.Stock;
 
 public class CmpStock {
 	
-	private int cmpId;
-	private int stockPrice;
-	private LocalDate date;
-	public CmpStock(int cmpId, int stockPrice, LocalDate date) {
-		super();
-		this.cmpId = cmpId;
-		this.stockPrice = stockPrice;
-		this.date = date;
+	List<Stock> stockData;
+	double avgVal;
+	double minVal;
+	double maxVal;
+	public List<Stock> getStockData() {
+		return stockData;
 	}
-	public int getCmpId() {
-		return cmpId;
+	public void setStockData(List<Stock> stockData) {
+		this.stockData = stockData;
 	}
-	public void setCmpId(int cmpId) {
-		this.cmpId = cmpId;
+	public double getAvgVal() {
+		return avgVal;
 	}
-	public int getStockPrice() {
-		return stockPrice;
+	public void setAvgVal(double avgVal) {
+		this.avgVal = avgVal;
 	}
-	public void setStockPrice(int stockPrice) {
-		this.stockPrice = stockPrice;
+	public double getMinVal() {
+		return minVal;
 	}
-	public LocalDate getDate() {
-		return date;
+	public void setMinVal(double minVal) {
+		this.minVal = minVal;
 	}
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public double getMaxVal() {
+		return maxVal;
 	}
+	public void setMaxVal(double maxVal) {
+		this.maxVal = maxVal;
+	}
+	@Override
+	public String toString() {
+		return "CmpStock [stockData=" + stockData + ", avgVal=" + avgVal + ", minVal=" + minVal + ", maxVal=" + maxVal
+				+ "]";
+	}
+	
 	
 	
 

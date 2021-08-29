@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import {map} from 'rxjs/operators';
-import { UserService } from 'src/app/services/user.service';
+import { CompanyService } from 'src/app/services/company.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     private _router: Router,
     private _fb: FormBuilder,
     private _loginService: LoginService,
-    private _userService: UserService
+    private _cmpService: CompanyService
     ) { }
 
   ngOnInit(): void {
@@ -35,12 +35,12 @@ export class LoginComponent implements OnInit {
   login(){
     this.wrongPassword = false;
     
-    this._userService.fetchUserData(this.loginForm.value['loginId']).pipe(map(data => {return data;})).subscribe(response => {
+    this._cmpService.fetchUserData(this.loginForm.value['loginId']).pipe(map(data => {return data;})).subscribe(response => {
 
         this.userData = response;
         if(this.userData.passwordKey === this.loginForm.value['passwordKey']){
           this._loginService.setLoginFlag("Y"); //logging in
-          this._userService.setLoginId(this.userData.loginId);
+          this._cmpService.setLoginId(this.userData.loginId);
           this._router.navigate(['myTweet']);
         }else{
           this.wrongPassword = true;

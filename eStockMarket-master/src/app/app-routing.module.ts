@@ -7,7 +7,7 @@ import { LoginComponent } from './components/login/login.component';
 
 import { UsersComponent } from './components/company-details/users.component';
 import  {SearchByDateComponent}from './components/search-by-date/search-by-date.component';
-
+import {AddStockComponent} from './components/add-stock/add-stock.component';
 const routes: Routes = [
   //{ path: 'login', component: LoginComponent },
  // { path: 'create', component: CreateUserComponent },
@@ -22,6 +22,7 @@ const routes: Routes = [
       { path: 'view', component:UsersComponent},
     { path: 'create', component: CreateUserComponent },
       { path: 'search', component: SearchByDateComponent },
+      { path: 'addStock', component: AddStockComponent }
    ]
   }
 ];

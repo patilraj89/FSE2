@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../model/User';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class LoginService {
 
   loginFlag: boolean = false;
 
-  loggedInUser: User;
+  loggedInUser;
 
   getLoginFlag(){
     return this.loginFlag;

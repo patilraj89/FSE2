@@ -3,6 +3,7 @@ package com.estock.cmp.registration.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,25 +22,28 @@ public class RegistrationController {
 	@Autowired
     private CompanyService service;
 
-	
+	@CrossOrigin
 	@PostMapping("/register")
-	public List<Company> saveCompany(@RequestBody Company company){		
+	public List<Company> saveCompany(@RequestBody Company company){	
+		System.out.println("Data="+company);
 		service.save(company);
 		return service.listAll();
 		
 	}
 	
-	
+	@CrossOrigin
 	@GetMapping("/info/{companycode}")
 	public Company getCmpInfo(@PathVariable("companycode") int companycode){		
 		return service.get(companycode);
 	}
 	
+	@CrossOrigin
 	@GetMapping("/getall")
 	public List<Company> getAllCmpData(){
 		return service.listAll();	
 	}
 	
+	@CrossOrigin
 	@DeleteMapping("/delete/{companycode}")
 	public List<Company> deleteCompany(@PathVariable("companycode") int companycode){
 		service.delete(companycode);

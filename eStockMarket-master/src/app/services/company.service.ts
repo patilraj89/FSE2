@@ -1,17 +1,41 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Tweets } from '../model/Tweets';
-
+import {AppSetting} from '../services/app-config';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class CompanyService {
 
   loginId: string;
   isReply:boolean = false;
 
   local = "3.249.45.95";
+
+
+  createCompany(data){
+    console.log('cmp reg service called');
+    return this.http.post(AppSetting.CMP_HOST_ADDRESS+'register',data);
+  }
+
+  listAllCmp(){
+    return this.http.get(AppSetting.CMP_HOST_ADDRESS+'getall');
+  }
+
+  removeCmp(id){
+    return this.http.delete(AppSetting.CMP_HOST_ADDRESS+'delete/'+id);
+  }
+
+
+  addStock(data){
+    console.log('stock add service called');
+    return this.http.post(AppSetting.STOCK_HOST_ADDRESS+'add',data);
+  }
+
+  listStockByCmp(data){
+    console.log('stock add service called');
+    return this.http.get(AppSetting.STOCK_HOST_ADDRESS+'get/'+data.cmpCode+'/'+data.searchDateFrom+'/'+data.searchDateTo);
+  }
 
 
   getReply(){

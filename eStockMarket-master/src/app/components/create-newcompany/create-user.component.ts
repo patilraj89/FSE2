@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder,FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
+import { CompanyService } from 'src/app/services/company.service';
 
 @Component({
   selector: 'app-create-user',
@@ -11,39 +11,45 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class CreateUserComponent implements OnInit {
 
-  UserEmailId: string;
-  UserFirstName: string;
-  UserLastName: string;
-  UserLoginId: string;
-  UserGender: string;
-  UserBirthDate: string;
-  //UserPasswordKey: string;
-
-  postData = this._fb.group(
-    {
-      companyCode: ['', [Validators.required, Validators.email]],
-      comapnyName: ['', Validators.required],
-      comapnyCEO: ['', Validators.required],
-      companyTurnover: ['', Validators.required],
-      companyWebsite: ['', Validators.required],
-      stockExchang: ['', Validators.required]
-    });
+  postData: FormGroup;
+  submitted = false;
+  pattern1 =  "^[0-9_-]{10,12}"; 
 
   constructor(
-    private userService: UserService,
+    private cmpService: CompanyService,
     private _fb: FormBuilder,
     private _router: Router
   ) { }
 
   ngOnInit(): void {
     console.log("inside")
+    this.postData = this._fb.group(
+      {
+        //companyCode: ['', [Validators.required, Validators.email]],
+        comapnyName: ['', Validators.required],
+        comapnyCEO: ['', Validators.required],
+        companyTurnover: ['', Validators.required],
+        companyWebsite: ['', Validators.required],
+        stockExchang: ['',Validators.required]
+      });
   }
 
-  saveUser() {
-    console.log("input dta : ", this.postData.value);
-    this.userService.createUser(this.postData.value).subscribe(response => {
-      console.log("respone :: " + response);
-      this._router.navigate(['login']);
+
+  get f() { return this.postData.controls; }
+
+  AddCmp() {
+    
+    this.submitted = true;
+
+        // stop here if form is invalid
+        if (this.postData.invalid) {
+          console.log("input dta not valid");
+            return;
+        }
+        console.log("input dta : ", this.postData.value);
+    this.cmpService.createCompany(this.postData.value).subscribe(response => {
+      console.log("respone :: " + JSON.stringify(response));
+      alert('Company Created Successfully');
     }, error => {
       console.log("error :: " + error);
     });

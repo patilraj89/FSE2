@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "eStockMarket-master"
+    }
+  },
+  "defaultProject": "eStockMarket-master",
+  "cli": {
+    "analytics": false
+  }
 }

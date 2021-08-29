@@ -17,74 +17,87 @@ public class Company {
 	private Integer id;
 	
 	@Column(name = "cmpName")
-	private String cmpName;
+	private String comapnyName;
 	
 	@Column(name = "cmpCeo")
-	private String cmpCeo;
+	private String comapnyCEO;
 	
 	@Column(name = "cmpTurnover")
-	private BigInteger cmpTurnover;
+	private BigInteger companyTurnover;
 	
 	@Column(name = "stockExchange")
-	private String stockExchange;
+	private String stockExchang;
 	
 	@Column(name = "cmpWebsite")
-	private String cmpWebsite;
+	private String companyWebsite;
 	
 	public Company() {}
-	
-	public Company(Integer id, String cmpName, String cmpCeo, BigInteger cmpTurnover, String stockExchange,
-			String cmpWebsite) {
+
+	public Company(Integer id, String comapnyName, String comapnyCEO, BigInteger companyTurnover, String stockExchang,
+			String companyWebsite) {
 		super();
 		this.id = id;
-		this.cmpName = cmpName;
-		this.cmpCeo = cmpCeo;
-		this.cmpTurnover = cmpTurnover;
-		this.stockExchange = stockExchange;
-		this.cmpWebsite = cmpWebsite;
+		this.comapnyName = comapnyName;
+		this.comapnyCEO = comapnyCEO;
+		this.companyTurnover = companyTurnover;
+		this.stockExchang = stockExchang;
+		this.companyWebsite = companyWebsite;
 	}
-	public Integer getCmpId() {
+
+	public Integer getId() {
 		return id;
 	}
-	public void setCmpId(Integer id) {
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getCmpName() {
-		return cmpName;
+
+	public String getComapnyName() {
+		return comapnyName;
 	}
-	public void setCmpName(String cmpName) {
-		this.cmpName = cmpName;
+
+	public void setComapnyName(String comapnyName) {
+		this.comapnyName = comapnyName;
 	}
-	public String getCmpCeo() {
-		return cmpCeo;
+
+	public String getComapnyCEO() {
+		return comapnyCEO;
 	}
-	public void setCmpCeo(String cmpCeo) {
-		this.cmpCeo = cmpCeo;
+
+	public void setComapnyCEO(String comapnyCEO) {
+		this.comapnyCEO = comapnyCEO;
 	}
-	public BigInteger getCmpTurnover() {
-		return cmpTurnover;
+
+	public BigInteger getCompanyTurnover() {
+		return companyTurnover;
 	}
-	public void setCmpTurnover(BigInteger cmpTurnover) {
-		this.cmpTurnover = cmpTurnover;
+
+	public void setCompanyTurnover(BigInteger companyTurnover) {
+		this.companyTurnover = companyTurnover;
 	}
-	public String getStockExchange() {
-		return stockExchange;
+
+	public String getStockExchang() {
+		return stockExchang;
 	}
-	public void setStockExchange(String stockExchange) {
-		this.stockExchange = stockExchange;
+
+	public void setStockExchang(String stockExchang) {
+		this.stockExchang = stockExchang;
 	}
-	public String getCmpWebsite() {
-		return cmpWebsite;
+
+	public String getCompanyWebsite() {
+		return companyWebsite;
 	}
-	public void setCmpWebsite(String cmpWebsite) {
-		this.cmpWebsite = cmpWebsite;
+
+	public void setCompanyWebsite(String companyWebsite) {
+		this.companyWebsite = companyWebsite;
 	}
+
 	@Override
 	public String toString() {
-		return "Company [cmpId=" + id + ", cmpName=" + cmpName + ", cmpCeo=" + cmpCeo + ", cmpTurnover="
-				+ cmpTurnover + ", stockExchange=" + stockExchange + ", cmpWebsite=" + cmpWebsite + "]";
+		return "Company [id=" + id + ", comapnyName=" + comapnyName + ", comapnyCEO=" + comapnyCEO
+				+ ", companyTurnover=" + companyTurnover + ", stockExchang=" + stockExchang + ", companyWebsite="
+				+ companyWebsite + "]";
 	}
-	
 	
 	
 

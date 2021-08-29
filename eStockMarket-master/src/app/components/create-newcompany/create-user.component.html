@@ -5,38 +5,51 @@
         <h2>Add Company</h2>
     </div>
     <form class="form" [formGroup]="postData">
-        <label for="companyCode">Company Code</label>
+        <!-- <label for="companyCode">Company Code</label>
         <input type="text" class="form-input" name="companyCode" formControlName="companyCode"
             placeholder="Enter your Company Code here.">
         <span *ngIf="postData.controls['companyCode'].errors?.required && postData.controls['companyCode'].touched">Company Code
             Required</span>
-        <br><br><br>
+        <br><br><br> -->
 
         <label for="comapnyName">Comapny Name</label>
         <input type="text" class="form-input" name="comapnyName" formControlName="comapnyName"
-            placeholder="Enter your Comapny Name here.">
-        <span
-            *ngIf="postData.controls['comapnyName'].errors?.required && postData.controls['comapnyName'].touched">Comapny Name
-            Required</span>
+            placeholder="Enter your Comapny Name here." [ngClass]="{ 'is-invalid': submitted && f.comapnyName.errors }">
+        <span>
+            <div *ngIf="submitted && f.comapnyName.errors" class="invalid-feedback">
+                <div *ngIf="f.comapnyName.errors.required">required</div>
+            </div>
+        </span>
+            
         <br><br><br>
 
         <label for="comapnyCEO">Comapny CEO</label>
         <input type="text" class="form-input" name="comapnyCEO" formControlName="comapnyCEO"
-            placeholder="Enter your Comapny CEO here.">
+            placeholder="Enter your Comapny CEO here." [ngClass]="{ 'is-invalid': submitted && f.comapnyCEO.errors }">
+            <span>
+                <div *ngIf="submitted && f.comapnyCEO.errors" class="invalid-feedback">
+                    <div *ngIf="f.comapnyCEO.errors.required">required</div>
+                </div>
+            </span>
         <br><br><br>
 
         <label for="companyTurnover">Company Turnover</label>
         <input type="text" class="form-input" name="companyTurnover" formControlName="companyTurnover"
-            placeholder="Enter your companyTurn over here.">
-        <span *ngIf="postData.controls['companyTurnover'].errors?.required && postData.controls['companyTurnover'].touched">Company Turnover
-            Required</span>
+            placeholder="Enter your companyTurn over here." [ngClass]="{ 'is-invalid': submitted && f.companyTurnover.errors }">
+            <span>
+                <div *ngIf="submitted && f.companyTurnover.errors" class="invalid-feedback">
+                    <div *ngIf="f.companyTurnover.errors.required">required</div>
+                </div>
+            </span>
         <br><br><br>
 
         <label for="companyWebsite">Company Website</label>
         <input type="text" class="form-input" name="companyWebsite" formControlName="companyWebsite"
-            placeholder="Enter your Company Website here.">
-        <span
-            *ngIf="postData.controls['companyWebsite'].errors?.required && postData.controls['companyWebsite'].touched">Company Website Required
+            placeholder="Enter your Company Website here." [ngClass]="{ 'is-invalid': submitted && f.companyWebsite.errors }">
+            <span>
+                <div *ngIf="submitted && f.companyWebsite.errors" class="invalid-feedback">
+                    <div *ngIf="f.companyWebsite.errors.required">required</div>
+                </div>
             </span>
         <br><br><br>
 
@@ -46,18 +59,21 @@
             placeholder="Enter your Stock Exchang here.">
         <br><br><br>-->
 
-        <label for="stockExchang">Stock Exchang</label>
-        <input type="stockExchang" class="form-input" name="stockExchang" formControlName="stockExchang"
-            placeholder="Enter your Stock Exchang here.">
-        <span
-            *ngIf="postData.controls['stockExchang'].errors?.required && postData.controls['stockExchang'].touched">stockExchang
-            Required</span>
+        <label for="stockExchang">Stock Exchang</label>        
+            <select id="stockExchang" name="stockExchang" formControlName="stockExchang" class="form-input" [ngClass]="{ 'is-invalid': submitted && f.stockExchang.errors }">
+                <option value="NSE">NSE</option>
+                <option value="BSE">BSE</option>                
+              </select>
+              <span>
+                <div *ngIf="submitted && f.stockExchang.errors" class="invalid-feedback">
+                    <div *ngIf="f.stockExchang.errors.required">required</div>
+                </div>
+            </span>
         <br><br><br>
 
         
-        <input type="submit" class="button form-submit" value="Add" (click)="saveUser()"
-      [disabled]="!postData.valid"><br />
-      <input class="button-cancel" value="Cancel" routerLink="/login">
+        <input type="submit" class="button form-submit" value="Add" (click)="AddCmp()"/><br />
+      
     <hr>
     </form>
 </div>

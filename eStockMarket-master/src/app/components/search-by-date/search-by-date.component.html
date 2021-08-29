@@ -1,23 +1,43 @@
-<p>search-by-date works!</p>
 <div class="main">
     <div class="header">
         <h1>Comapny Details</h1>
         <hr>
-        <h2>Search by Comapny Code</h2>
+        <h2>Search by Comapny Name</h2>
     </div>
     <form class="form" [formGroup]="postData">
+        <label for="cmpCode">Company Name</label>        
+            <select id="cmpCode" name="cmpCode" formControlName="cmpCode" class="form-input" 
+            [ngClass]="{ 'is-invalid': submitted && f.cmpCode.errors }">
+                <option *ngFor = "let cmp of cmpDetails" value="{{cmp.id}}">{{cmp.comapnyName}}</option>                            
+              </select>
+              <span>
+                <div *ngIf="submitted && f.cmpCode.errors" class="invalid-feedback">
+                    <div *ngIf="f.cmpCode.errors.required">required</div>
+                </div>
+            </span>
+        <br><br><br>
         <label for="searchDateTo">DateTo</label>
         <input type="date" class="form-input" name="searchDateTo" formControlName="searchDateTo"
-            placeholder="Enter DateTo .">
-            <br><br><br>   
-            <label for="searchFromTo">FromTo</label>
-        <input type="date" class="form-input" name="searchFromTo" formControlName="searchFromTo"
-            placeholder="Enter DateFrom .">
+            placeholder="Enter DateTo ." [ngClass]="{ 'is-invalid': submitted && f.searchDateTo.errors }">
+            <span>
+                <div *ngIf="submitted && f.searchDateTo.errors" class="invalid-feedback">
+                    <div *ngIf="f.searchDateTo.errors.required">required</div>
+                </div>
+            </span>
+            <br><br><br>  
+            
+            
+            <label for="searchDateFrom">FromTo</label>
+        <input type="date" class="form-input" name="searchDateFrom" formControlName="searchDateFrom"
+            placeholder="Enter DateFrom ." [ngClass]="{ 'is-invalid': submitted && f.searchDateFrom.errors }">
+            <span>
+                <div *ngIf="submitted && f.searchDateFrom.errors" class="invalid-feedback">
+                    <div *ngIf="f.searchDateFrom.errors.required">required</div>
+                </div>
+            </span>
         <br><br><br>
-        <span *ngIf="postData.controls['searchFromTo'].errors?.required && postData.controls['searchFromTo'].touched">Date From
-            Required</span>
-        <input type="submit" class="button form-submit" value="Search" (click)="searchUser()"
-            [disabled]="!postData.valid"><br />
+        
+        <input type="submit" class="button form-submit" value="Search" (click)="searchUser()"><br />
         <hr>
     </form>
 </div>
@@ -31,10 +51,10 @@
            
             
         </thead>
-        <tbody *ngFor = "let user of usersDetails">
-            <td>{{user.companyCode}}</td>
-            <td>{{user.comapnyName}}</td>
-            
+        <tbody *ngFor = "let stock of stockDetails">
+            <td>{{stock.stockPrice}}</td>
+            <td>{{stock.date}}</td> 
+            <td>{{stock.time}}</td>          
             <hr>
         </tbody>
     </table>
@@ -50,10 +70,10 @@
            
             
         </thead>
-        <tbody *ngFor = "let user of usersDetails">
-            <td>{{user.companyCode}}</td>
-            <td>{{user.comapnyName}}</td>
-            
+        <tbody>
+            <td>{{maxVal}}</td>
+            <td>{{minVal}}</td>
+            <td>{{avgVal}}</td>
             <hr>
         </tbody>
     </table>

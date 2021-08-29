@@ -1,0 +1,33 @@
+<div class="main">
+    <div class="header">        
+        <h2>Add Stock</h2>
+    </div>
+    <form class="form" [formGroup]="postData">
+        
+        <label for="cmpCode">Company Name</label>        
+            <select id="cmpCode" name="cmpCode" formControlName="cmpCode" class="form-input" 
+            [ngClass]="{ 'is-invalid': submitted && f.cmpCode.errors }">
+                <option *ngFor = "let cmp of cmpDetails" value="{{cmp.id}}">{{cmp.comapnyName}}</option>                            
+              </select>
+              <span>
+                <div *ngIf="submitted && f.cmpCode.errors" class="invalid-feedback">
+                    <div *ngIf="f.cmpCode.errors.required">required</div>
+                </div>
+            </span>
+        <br><br><br>
+
+        <label for="stockPrice">Stock Price</label>
+        <input type="text" class="form-input" name="stockPrice" formControlName="stockPrice"
+            placeholder="Enter your Company Website here." [ngClass]="{ 'is-invalid': submitted && f.stockPrice.errors }">
+            <span>
+                <div *ngIf="submitted && f.stockPrice.errors" class="invalid-feedback">
+                    <div *ngIf="f.stockPrice.errors.required">required</div>
+                </div>
+            </span>
+        <br><br><br>
+        
+        <input type="submit" class="button form-submit" value="AddStock" (click) = "AddStock()"/><br />
+      
+    <hr>
+    </form>
+</div>

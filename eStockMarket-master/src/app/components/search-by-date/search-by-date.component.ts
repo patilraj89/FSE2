@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-import { User } from 'src/app/model/User';
-import { UserService } from 'src/app/services/user.service';
+import { CompanyService } from 'src/app/services/company.service';
 import {map} from 'rxjs/operators';
 import { FormBuilder, Validators } from '@angular/forms';
 @Component({
@@ -12,21 +10,37 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class SearchByDateComponent implements OnInit {
 
-  viewingUser: User;
+  viewingUser;
+  postData;
+  stockDetails;
+  submitted = false;
   toSearchDateTo: string;
   toSearchDateFrom: string;
-
+  cmpDetails;
   usersDetails:any = [];
+  statDetails;
+  maxVal;
+  minVal;
+  avgVal;
 
-  postData = this._fb.group({
-    searchDateTo: ['', Validators.required],
-    searchFromTo: ['', Validators.required],
-  });
+  
 
-  constructor(private userService: UserService,
+  constructor(private cmpService: CompanyService,
     private _fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.postData = this._fb.group({
+      cmpCode:['', Validators.required],
+      searchDateTo: ['', Validators.required],
+      searchDateFrom: ['', Validators.required],
+    });
+
+    this.cmpService.listAllCmp().pipe(map(data => {return data;})).subscribe(response => {
+      this.cmpDetails = response        
+        console.log("respone :: ",JSON.stringify(response));
+      },error => {
+        console.log("error :: "+error);
+      });
    // this.userService.allUsers().pipe(map(data => {return data;})).subscribe(response => {
       //this.viewingUsers = response
    //     this.usersDetails = response;
@@ -34,6 +48,7 @@ export class SearchByDateComponent implements OnInit {
    //   },error => {
    //     console.log("error :: "+error);
    //   });
+
   }
 
   view(){
@@ -41,12 +56,35 @@ export class SearchByDateComponent implements OnInit {
     console.log("result  ");
   }
 
+  get f() { return this.postData.controls; }
   searchUser(){
-    if(this.postData.value['searchDateTo']){
-      //this.viewingUser = this.userService.getUser(this.toSearchUserEmail);
-      //search in below data. use filter if necessary
-      console.log("searchDateTo : ",this.postData.value['searchDateTo']);
-    }
+    this.submitted = true;
+    console.log("input dta : ", this.postData.value);
+        // stop here if form is invalid
+        if (this.postData.invalid) {
+          console.log("input dta not valid");
+            return;
+        }
+        console.log("input dta : ", this.postData.value.cmpCode);
+        this.cmpService.listStockByCmp(this.postData.value).pipe(map(data => {return data;})).subscribe(response => {
+          this.stockDetails = response['stockData'];
+          this.maxVal = response['maxVal'];
+          this.minVal = response['minVal'];
+          this.avgVal = response['avgVal'];   
+            console.log("respone :: ",JSON.stringify(response));
+
+            this.cmpService.listAllCmp().pipe(map(data => {return data;})).subscribe(response => {
+              this.cmpDetails = response        
+                console.log("respone :: ",JSON.stringify(response));
+              },error => {
+                console.log("error :: "+error);
+              });
+
+
+          },error => {
+            console.log("error :: "+error);
+          });
+   
   }
 
   handleResponse(response){

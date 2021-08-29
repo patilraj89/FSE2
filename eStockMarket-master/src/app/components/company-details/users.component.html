@@ -1,20 +1,7 @@
 <div class="main">
     <div class="header">
-        <h1>Comapny Details</h1>
-        <hr>
-        <h2>Search by Comapny Code</h2>
-    </div>
-    <form class="form" [formGroup]="postData">
-        <label for="companyCode">Company Code</label>
-        <input type="text" class="form-input" name="Company Code" formControlName="companyCode"
-            placeholder="Enter Company Code .">
-        <br><br><br>
-        <span *ngIf="postData.controls['companyCode'].errors?.required && postData.controls['companyCode'].touched">Company Code
-            Required</span>
-        <input type="submit" class="button form-submit" value="Search" (click)="searchUser()"
-            [disabled]="!postData.valid"><br />
-        <hr>
-    </form>
+        <h1>Comapny Details</h1>        
+    </div>    
 </div>
 <div class="container">
     <table class="responsive-table">
@@ -25,13 +12,17 @@
             <th scope="col">Comapny CEO</th>
             <th scope="col">Company Turnover</th>
             <th scope="col">Company Website</th>
+            <th scope="col">Stock Exchange</th>
+            <th scope="col">Action</th>
         </thead>
-        <tbody *ngFor = "let user of usersDetails">
-            <td>{{user.companyCode}}</td>
-            <td>{{user.comapnyName}}</td>
-            <td>{{user.comapnyCEO}}</td>
-            <td>{{user.companyTurnover}}</td>
-            <td>{{user.companyWebsite}}</td>
+        <tbody *ngFor = "let cmp of cmpDetails">
+            <td>{{cmp.id}}</td>
+            <td>{{cmp.comapnyName}}</td>
+            <td>{{cmp.comapnyCEO}}</td>
+            <td>{{cmp.companyTurnover}}</td>
+            <td>{{cmp.companyWebsite}}</td>
+            <td>{{cmp.stockExchang}}</td>
+            <td><a (click)= "deleteCmp(cmp.id)" style="cursor: pointer; color: red;">DELETE</a></td>
             <hr>
         </tbody>
     </table>
