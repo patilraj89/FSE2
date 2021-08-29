@@ -37,8 +37,7 @@ export class CreateUserComponent implements OnInit {
 
   get f() { return this.postData.controls; }
 
-  AddCmp() {
-    
+  AddCmp() {    
     this.submitted = true;
 
         // stop here if form is invalid
