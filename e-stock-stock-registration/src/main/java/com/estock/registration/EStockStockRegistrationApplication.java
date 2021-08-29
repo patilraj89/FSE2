@@ -5,7 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import com.estock.repository.StockRepository;
+import com.spring4all.mongodb.EnableMongoPlus;
 
+@EnableMongoPlus
 @SpringBootApplication
 @EnableMongoRepositories(basePackageClasses = StockRepository.class)
 public class EStockStockRegistrationApplication {
