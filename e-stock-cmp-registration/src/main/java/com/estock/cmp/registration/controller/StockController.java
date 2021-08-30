@@ -49,7 +49,10 @@ public class StockController {
 	@CrossOrigin
 	@GetMapping("/get/{cmpcode}/{fdate}/{tdate}")
 	public CmpStock getStock(@PathVariable("cmpcode") String cCode, @PathVariable("fdate") String fdt, @PathVariable("tdate") String tdt) {
+		
 		CmpStock resRes = new CmpStock();
+		try {
+		
 		System.out.println("CCODE:"+cCode);
 		System.out.println("FDATE:"+fdt);
 		System.out.println("TDATE:"+tdt);		
@@ -57,6 +60,8 @@ public class StockController {
 		System.out.println("Res="+res);
 		List<Stock> fRes = res.stream().filter(x->(getDate(x.gettDate()).after(getDate(fdt)) || getDate(x.gettDate()).equals(getDate(fdt))) && (getDate(x.gettDate()).before(getDate(tdt)) || getDate(x.gettDate()).equals(getDate(tdt)))).collect(Collectors.toList());
 		resRes.setStockData(fRes);
+		
+		System.out.println("Result="+fRes);
 		
 		DoubleSummaryStatistics stats = fRes.stream()
                 .mapToDouble(n -> n.getStockPrice())
@@ -70,6 +75,9 @@ public class StockController {
 		resRes.setMinVal(BigDecimal.valueOf(stats.getMin())
 			    .setScale(2, RoundingMode.HALF_UP)
 			    .doubleValue());
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		return resRes;
 	}
 	

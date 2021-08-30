@@ -15,19 +15,10 @@
                     <div *ngIf="f.cmpCode.errors.required">required</div>
                 </div>
             </span>
-        <br><br><br>
-        <label for="searchDateTo">DateTo</label>
-        <input type="date" class="form-input" name="searchDateTo" formControlName="searchDateTo"
-            placeholder="Enter DateTo ." [ngClass]="{ 'is-invalid': submitted && f.searchDateTo.errors }">
-            <span>
-                <div *ngIf="submitted && f.searchDateTo.errors" class="invalid-feedback">
-                    <div *ngIf="f.searchDateTo.errors.required">required</div>
-                </div>
-            </span>
-            <br><br><br>  
+        <br><br><br>      
             
             
-            <label for="searchDateFrom">FromTo</label>
+        <label for="searchDateFrom">Date From</label>
         <input type="date" class="form-input" name="searchDateFrom" formControlName="searchDateFrom"
             placeholder="Enter DateFrom ." [ngClass]="{ 'is-invalid': submitted && f.searchDateFrom.errors }">
             <span>
@@ -36,6 +27,16 @@
                 </div>
             </span>
         <br><br><br>
+
+        <label for="searchDateTo">Date To</label>
+        <input type="date" class="form-input" name="searchDateTo" formControlName="searchDateTo"
+            placeholder="Enter DateTo ." [ngClass]="{ 'is-invalid': submitted && f.searchDateTo.errors }">
+            <span>
+                <div *ngIf="submitted && f.searchDateTo.errors" class="invalid-feedback">
+                    <div *ngIf="f.searchDateTo.errors.required">required</div>
+                </div>
+            </span>
+            <br><br><br> 
         
         <input type="submit" class="button form-submit" value="Search" (click)="searchUser()"><br />
         <hr>
@@ -53,7 +54,7 @@
         </thead>
         <tbody *ngFor = "let stock of stockDetails">
             <td>{{stock.stockPrice}}</td>
-            <td>{{stock.date}}</td> 
+            <td>{{stock.tDate}}</td> 
             <td>{{stock.time}}</td>          
             <hr>
         </tbody>

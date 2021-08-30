@@ -82,6 +82,11 @@ export class SearchByDateComponent implements OnInit {
 
 
           },error => {
+            alert('Data Not Found for Given Company');
+          this.stockDetails = [];
+          this.maxVal = 0
+          this.minVal = 0
+          this.avgVal = 0
             console.log("error :: "+error);
           });
    
